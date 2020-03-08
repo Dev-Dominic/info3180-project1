@@ -6,6 +6,6 @@ INFO3180 project 1, showing use of FLASK.
 
 ```bash
 
-    $ python run.py
+$ python run.py
 
 ```
