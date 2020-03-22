@@ -1,5 +1,3 @@
-
-# Script Imports
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, TextAreaField, FileField, SubmitField
 from wtfforms.validators import InputRequired, Email, Length, RegExp
