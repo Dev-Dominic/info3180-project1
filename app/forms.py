@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileRequired, FileAllowed
 from wtforms import StringField, SelectField, TextAreaField, FileField, SubmitField
-from wtfforms.validators import InputRequired, Email, Length, RegExp
+from wtforms.validators import InputRequired, Email, Length
 
 # User sign-up form
 class NewUserForm(FlaskForm): 
@@ -23,8 +24,6 @@ class NewUserForm(FlaskForm):
             Length(min=3,max=30)
         ])
     biography = TextAreaField('Biography', validators=[InputRequired()])
-    profilePicture = FileField("Profile Picture", [
-            Regexp(u"^[^/\\]\.(jpg|png)$", message="Incorrect file format, jpg or png needed")
-        ])
+    profilePicture = FileField("Profile Picture", validators=[FileRequired(), FileAllowed(['jpg', 'png']), 'Only jpg and png images allowed!'])
     submit = SubmitField("Add Profile")
 
