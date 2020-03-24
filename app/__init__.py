@@ -3,7 +3,11 @@ from flask import Flask
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "qjA$A-kp>7Pe7D(" 
-app.config['static_folder'] = "static" 
+
+
+# Dev config variables
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 
 # FLASK DATABASE CONFIG
 # db = SQLAlchemy(app)
