@@ -14,14 +14,14 @@ class NewUserForm(FlaskForm):
             Length(min=3,max=30)
         ])
     gender = SelectField("Gender", choices=[ 
-        ("Male", "Female", "Non-Binary", "Attack-Helicopter")])
+        ("M", "Male"), ("F","Female"), ("N-B","Non-Binary"), ("A-H","Attack-Helicopter")])
     email = StringField('Email', validators=[
             InputRequired(),
             Email()
         ])
-    location = StringField('Last Name', validators=[
+    location = StringField('Location', validators=[
             InputRequired(),
-            Length(min=3,max=30)
+            Length(min=3,max=256)
         ])
     biography = TextAreaField('Biography', validators=[InputRequired()])
     profilePicture = FileField("Profile Picture", validators=[FileRequired(), FileAllowed(['jpg', 'png']), 'Only jpg and png images allowed!'])
