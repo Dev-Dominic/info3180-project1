@@ -1,0 +1,66 @@
+/*
+
+    Colorscheme: 
+
+    grey: #e3e3e3
+    light-grey: #f6f6f8
+    red: #c60021
+
+*/
+
+
+/* Base Page */
+
+body{
+    background-color: #f6f6f8;
+}
+
+nav{
+    background-color: #c60021;
+}
+
+.navbar-brand{
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar-brand:hover{
+    color: #fff;
+}
+
+.nav-link{
+    color: #fff;
+    font-size: 0.8rem;
+}
+
+.nav-link:hover{
+    color: #e3e3e3;
+}
+
+.navbar-toggler:focus, .navbar-toggler:active {
+    outline: none;
+    box-shadow: none;
+}
+
+main{
+    margin-top: 5rem;    
+}
+
+/* Create Profile Page */
+
+form {
+    margin-top: 2.5rem;
+}
+
+form label{
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #c60021 !important;
+    border-color: #c60021 !important;
+}
