@@ -140,3 +140,6 @@ cython_debug/
 
 # static files generated from Django application using `collectstatic`
 media
+
+# Other Files (omitting config files)
+config/database_credentials.json
