@@ -23,6 +23,10 @@ def setup():
     # Collection of database credentials from file
 
     ROOTDIR = os.getenv('INFO3180_PROJECT1_ROOTDIR')  
+    if ROOTDIR == None:
+        print("Project path variable not set! Please Set first!")
+        return 
+
     credentialsFile = os.path.join(ROOTDIR, "config", "database_credentials.json")
 
     with open(credentialsFile) as fptr:
