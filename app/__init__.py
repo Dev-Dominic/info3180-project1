@@ -1,6 +1,7 @@
 import os
 import json
 from flask import Flask 
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -27,7 +28,7 @@ db = SQLAlchemy(app)
 
 app.config['SQLALCHMEY_TRACK_MODIFICATIONS'] = False
 
-
+migrate = Migrate(app,db)
 
 app.config.from_object(__name__)
 from app import views, models
