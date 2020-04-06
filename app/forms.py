@@ -4,7 +4,7 @@ from wtforms import StringField, SelectField, TextAreaField, FileField, SubmitFi
 from wtforms.validators import InputRequired, Email, Length
 
 # User sign-up form
-class NewUserForm(FlaskForm): 
+class SignUpForm(FlaskForm): 
     firstName = StringField('First Name', validators=[
             InputRequired(),
             Length(min=3,max=30)

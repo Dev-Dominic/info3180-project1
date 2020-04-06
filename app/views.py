@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, url_for, flash
-from .forms import NewUserForm
+from .forms import SignUpForm
 
 @app.route("/")
 def home(): 
@@ -12,7 +12,7 @@ def about():
 
 @app.route("/profile")
 def createProfile(): 
-    form = NewUserForm() 
+    form = SignUpForm() 
     return render_template("createProfile.html", form=form) 
 
 @app.route("/profile/<uid>")
