@@ -1,8 +1,15 @@
 #!/usr/bin/python
 
-import os
 import psycopg2
-import json
+
+# Addition of configuration folder to the PYTHONPATH
+# Needed configuration folder to retrieve database credentials
+# For database setup
+
+import sys
+sys.path.append('config')
+
+import config
 
 def setup(): 
     """Setups project database 
@@ -19,18 +26,7 @@ def setup():
 
     """
 
-    # Getting path of config folder 
-    # Collection of database credentials from file
-
-    ROOTDIR = os.getenv('INFO3180_PROJECT1_ROOTDIR')  
-    if ROOTDIR == None:
-        print("Project path variable not set! Please Set first!")
-        return 
-
-    credentialsFile = os.path.join(ROOTDIR, "config", "database_credentials.json")
-
-    with open(credentialsFile) as fptr:
-        db = json.load(fptr) 
+    db = config.getCredentials() # Database credentials
 
     conn = psycopg2.connect(
         user="postgres",

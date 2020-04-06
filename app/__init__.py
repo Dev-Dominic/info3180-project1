@@ -1,34 +1,29 @@
-import os
-import json
+# Flask Modules
 from flask import Flask 
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+# Addition of configuration folder to the PYTHONPATH
+# Needed configuration folder to retrieve database credentials
+# For database init
 
-app.config['SECRET_KEY'] = "qjA$A-kp>7Pe7D(" 
+import sys
+sys.path.append('config')
 
+import config
+
+app = Flask(__name__)  
 
 # Dev config variables
+app.config['SECRET_KEY'] = "qjA$A-kp>7Pe7D(" 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+dbCred = config.getCredentials()
 
-# FLASK DATABASE CONFIG
-ROOTDIR = os.getenv('INFO3180_PROJECT1_ROOTDIR')  
-if ROOTDIR == None:
-    print("Project path variable not set! Please Set first!")
-
-credentialsFile = os.path.join(ROOTDIR, "config", "database_credentials.json")
-
-with open(credentialsFile) as fptr:
-    db = json.load(fptr) 
-
-app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{db['DB_USER']}:{db['DB_PASSWORD']}@localhost/{db['DB_NAME']}"
+# Database config
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{dbCred['DB_USER']}:{dbCred['DB_PASSWORD']}@localhost/{dbCred['DB_NAME']}"
 db = SQLAlchemy(app)
-
-app.config['SQLALCHMEY_TRACK_MODIFICATIONS'] = False
-
 migrate = Migrate(app,db)
 
-app.config.from_object(__name__)
 from app import views, models
