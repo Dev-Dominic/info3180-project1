@@ -53,7 +53,6 @@ def createProfile():
     template = redirect(url_for('profiles'))
     return template
 
-
 @app.route("/profile/<uid>")
 def profile(uid): 
     return "profile"
