@@ -9,8 +9,9 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     location = db.Column(db.String(256), nullable=False)
     biography = db.Column(db.Text, nullable=False)
+    dateJoined = db.Column(db.Date, nullable=False)
 
-    def __init__(self, firstname, lastname, gender, email, location, biography):
+    def __init__(self, firstname, lastname, gender, email, location, biography, dateJoined):
         """ Class Attributes init """
         self.firstname = firstname
         self.lastname = lastname
@@ -18,6 +19,7 @@ class User(db.Model):
         self.email = email
         self.location = location
         self.biography = biography
+        self.dateJoined = dateJoined
 
     def __repr__(self):
         """ Changing object string representation """
