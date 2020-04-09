@@ -1,8 +1,11 @@
-from app import app, db
 from app.models import User
+from app import app, db
 from flask import render_template, request, redirect, url_for, flash
+from werkzeug.utils import secure_filename
 from .forms import SignUpForm
 from datetime import date
+
+import os
 
 @app.route("/")
 def home(): 
@@ -29,7 +32,18 @@ def createProfile():
     if request.method != "POST": 
         return template  
 
-    if not form.validate():
+    if 'profilePicture' not in request.files: # Checking if image was sent with request
+        flash('No profile picture uploaded!')
+        return template
+
+    _file = request.files['profilePicture']
+
+    # Validation of form data 
+    # Checks that a file was submitted
+    # Checks that file does not contain empty string
+    # as filename
+
+    if not (form.validate() or _file or _file.filename):
         flash('Sign Up failed!')
         return template
 
@@ -39,19 +53,49 @@ def createProfile():
     # If email exists in database
 
     checkEmail = User.query.filter_by(email=form.email.data).first()
-    if form.email.data == None: 
+    if checkEmail != None: 
         flash('User email has already been used!')
         return template
+
     
-    # user = User(*form, date.today()) # Unpacking form data to create new user
-    print(form.data)
-    user = User(form.firstname.data, form.lastname.data, form.gender.data, form.email.data, form.location.data, form.biography.data, date.today())
-    db.session.add(user)
-    db.session.commit()
+    filterUserData = dict(filter(lambda attr: attr[0] in User.attrs, form.data.items())) # Filter form data for user model related data
+    save_user(filterUserData) 
+    upload_profile_picture(_file, filterUserData['email'])
+
 
     flash('SUCCESFULL SIGNUP')
     template = redirect(url_for('profiles'))
     return template
+
+def save_user(userData):
+    """Creates and saves new user
+
+    Args:
+        userData: Dictionary containg data to create new user
+
+    Return:
+        None
+
+    """
+    
+    user = User(**userData, dateJoined = date.today())
+    db.session.add(user)
+    db.session.commit()
+
+
+def upload_profile_picture(profilePicture, email): 
+    """Upload new user profile picture
+
+    Args:
+        profilePicture: File containing new user profile picture
+        email:  Used to make sure each profile picture is unique
+
+    Return: 
+        None
+
+    """
+    filename = f'{email}_{secure_filename(profilePicture.filename)}'
+    profilePicture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))  
 
 @app.route("/profile/<uid>")
 def profile(uid): 

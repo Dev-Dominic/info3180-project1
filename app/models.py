@@ -11,6 +11,10 @@ class User(db.Model):
     biography = db.Column(db.Text, nullable=False)
     dateJoined = db.Column(db.Date, nullable=False)
 
+    # Stores all stored attributes for the User model
+
+    attrs = ['firstname', 'lastname', 'gender', 'email', 'location', 'biography', 'dateJoined'] 
+
     def __init__(self, firstname, lastname, gender, email, location, biography, dateJoined):
         """ Class Attributes init """
         self.firstname = firstname
