@@ -143,3 +143,8 @@ media
 
 # Other Files (omitting config files)
 config/database_credentials.json
+
+# upload_folder images
+app/upload_folder/*.jpg
+app/upload_folder/*.jpeg
+app/upload_folder/*.png
