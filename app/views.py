@@ -1,7 +1,7 @@
 from app.models import User
 from app import app, db
-from flask import render_template, request, redirect, url_for, flash
-from werkzeug.utils import secure_filename
+from flask import render_template, request, redirect, url_for, flash, send_from_directory
+from werkzeug.utils import secure_filename 
 from .forms import SignUpForm
 from datetime import date
 
@@ -57,6 +57,7 @@ def createProfile():
         flash('User email has already been used!')
         return template
 
+    # Filter form data for user model related data
     # Securing and saving profile picture filename 
     
     filterUserData = dict(filter(lambda attr: attr[0] in User.attrs, form.data.items())) 
@@ -88,6 +89,9 @@ def save_user(userData):
     db.session.add(user)
     db.session.commit()
 
+@app.route("/profile/<uid>")
+def profile(uid): 
+    return "profile"
 
 @app.route('/profiles')
 def profiles(): 
@@ -96,12 +100,16 @@ def profiles():
     Args:
         None
 
+    Return:
+        template: Rendered profiles.html template with all users
+        and boolean value 
 
-@app.route("/profile/<uid>")
-def profile(uid): 
-    return "profile"
+    """
+    users = User.query.all()
 
-@app.route("/profiles")
-def profiles(): 
-    return "profiles"
+    template = render_template('profiles.html', users=users)  
+    return template 
 
+@app.route('/upload/<path:filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)

@@ -46,6 +46,7 @@ nav{
 
 main{
     margin-top: 5rem;    
+    
 }
 
 /* Create Profile Page */
@@ -63,4 +64,21 @@ form label{
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: #c60021 !important;
     border-color: #c60021 !important;
+}
+
+/* Profiles Page */
+
+.card{
+    margin-bottom: 1rem;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+}
+
+.card-profileImage{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border: 5px solid #e3e3e3;
+    margin: auto;
 }
