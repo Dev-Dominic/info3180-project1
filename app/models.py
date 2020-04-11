@@ -7,20 +7,22 @@ class User(db.Model):
     lastname = db.Column(db.String(50), nullable=False)
     gender = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    profileImage = db.Column(db.String(150), nullable=False)
     location = db.Column(db.String(256), nullable=False)
     biography = db.Column(db.Text, nullable=False)
     dateJoined = db.Column(db.Date, nullable=False)
 
     # Stores all stored attributes for the User model
 
-    attrs = ['firstname', 'lastname', 'gender', 'email', 'location', 'biography', 'dateJoined'] 
+    attrs = ['firstname', 'lastname', 'gender', 'email', 'profileImage','location', 'biography', 'dateJoined'] 
 
-    def __init__(self, firstname, lastname, gender, email, location, biography, dateJoined):
+    def __init__(self, firstname, lastname, gender, email, profileImage,location, biography, dateJoined):
         """ Class Attributes init """
         self.firstname = firstname
         self.lastname = lastname
         self.gender = gender
         self.email = email
+        self.profileImage = profileImage
         self.location = location
         self.biography = biography
         self.dateJoined = dateJoined
