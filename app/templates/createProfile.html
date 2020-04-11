@@ -2,6 +2,10 @@
 
 {% block content %}
 
+{% if error and error_msg %}
+    <div class="alert {{ error }}"> {{ error_msg }}</div>
+{% endif %}
+
 <h1>Add Profile</h1>
 
 <form method="POST" action="/profile" enctype="multipart/form-data">

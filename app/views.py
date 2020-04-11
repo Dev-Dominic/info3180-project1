@@ -25,15 +25,32 @@ def createProfile():
     Return: 
         template: render /profile or /profiles endpoint
     """
-
     form = SignUpForm() 
-    template = render_template("createProfile.html", form=form)
+
+    def createTemplate(error=None, error_msg=None, form=form):
+        """Creates create profile teimplate
+
+            Arg: 
+                error: Error type
+                error_msg: Error message to be render to create profile template
+
+           Return:
+                template: Renders teimplate for create profile with any
+                errors or error messages
+        """
+        return render_template(
+                'createProfile.html', 
+                error=error, 
+                error_msg=error_msg, 
+                form=form)
+
 
     if request.method != "POST": 
+        template = createTemplate()
         return template  
 
     if 'profilePicture' not in request.files: # Checking if image was sent with request
-        flash('No profile picture uploaded!')
+        template = createTemplate('alert-warning', 'No profile picture uploaded!')
         return template
 
     _file = request.files['profilePicture']
@@ -44,7 +61,7 @@ def createProfile():
     # as filename
 
     if not (form.validate() or _file or _file.filename):
-        flash('Sign Up failed!')
+        template = createTemplate(error='alert-danger', error_msg='Sign up failed!')
         return template
 
     # User email addresses should be unique
@@ -54,7 +71,7 @@ def createProfile():
 
     checkEmail = User.query.filter_by(email=form.email.data).first()
     if checkEmail != None: 
-        flash('User email has already been used!')
+        template = createTemplate(error='alert-warning', error_msg='User email has already been used!')
         return template
 
     # Filter form data for user model related data
@@ -70,7 +87,7 @@ def createProfile():
     filterUserData['profileImage'] = profileImage 
     save_user(filterUserData) 
 
-    flash('SUCCESFULL SIGNUP')
+    flash('Succesful signup', 'alert-success')
     template = redirect(url_for('profiles'))
     return template
 
