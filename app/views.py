@@ -57,11 +57,17 @@ def createProfile():
         flash('User email has already been used!')
         return template
 
+    # Securing and saving profile picture filename 
     
-    filterUserData = dict(filter(lambda attr: attr[0] in User.attrs, form.data.items())) # Filter form data for user model related data
-    save_user(filterUserData) 
-    upload_profile_picture(_file, filterUserData['email'])
+    filterUserData = dict(filter(lambda attr: attr[0] in User.attrs, form.data.items())) 
+    profileImage = secure_filename(_file.filename)
+    _file.save(os.path.join(app.config['UPLOAD_FOLDER'], profileImage))  
 
+    # Updating filtered user data dictionary with profile image
+    # filename, as well as, save the new user data to database
+
+    filterUserData['profileImage'] = profileImage 
+    save_user(filterUserData) 
 
     flash('SUCCESFULL SIGNUP')
     template = redirect(url_for('profiles'))
@@ -83,19 +89,13 @@ def save_user(userData):
     db.session.commit()
 
 
-def upload_profile_picture(profilePicture, email): 
-    """Upload new user profile picture
+@app.route('/profiles')
+def profiles(): 
+    """Renders template with all user profiles listed
 
     Args:
-        profilePicture: File containing new user profile picture
-        email:  Used to make sure each profile picture is unique
-
-    Return: 
         None
 
-    """
-    filename = f'{email}_{secure_filename(profilePicture.filename)}'
-    profilePicture.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))  
 
 @app.route("/profile/<uid>")
 def profile(uid): 
