@@ -53,8 +53,7 @@ def setup():
             conn.commit()  
         except e:
             print(f"An Error occured during setup: {e}")
-    
-if __name__ == "__main__":
+    if __name__ == "__main__":
     setup()
 
 
