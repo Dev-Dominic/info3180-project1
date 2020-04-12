@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user %}
+
+            <div class="row">
+                <div class="card col-12 col-xl-8">
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-xl-8 col-12">
+                                <img class="card-profileImage" src="{{ url_for('uploaded_file' ,  filename=user.profileImage) }}" alt="Profile Picture">
+                            </div>
+
+                            <div class="col-xl-3 col-12">
+                                <h5 class="card-title">{{ user.firstname }} {{ user.lastname }}</h5>
+                                
+                                <p class="card-text">
+                                    <span></span>
+                                    {{ user.gender }}
+                                </p>
+
+                                <p class="card-text">
+                                    {{ user.location }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <p class="card-text">
+                                {{ user.biography }}
+                            </p>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <a href="#" class="btn btn-primary col-md-3 col-12">Send Message</a>
+                            <a href="#" class="btn btn-secondary col-md-3 col-12">Follow</a>
+                        </div>
+                    
+                    </div>
+            </div>
+        </div>
+
+    {% else %}
+        <h2>User not found</h2>
+    {% endif %}
+{% endblock %}

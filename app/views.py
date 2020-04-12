@@ -9,7 +9,7 @@ import os
 
 @app.route("/")
 def home(): 
-    return render_template("home.html")
+    return render_template("home.html", title='Home')
 
 @app.route("/about")
 def about(): 
@@ -42,7 +42,8 @@ def createProfile():
                 'createProfile.html', 
                 error=error, 
                 error_msg=error_msg, 
-                form=form)
+                form=form,
+                title='Create Profile')
 
 
     if request.method != "POST": 
@@ -108,7 +109,19 @@ def save_user(userData):
 
 @app.route("/profile/<uid>")
 def profile(uid): 
-    return "profile"
+    """Renders a given users profile
+
+    Args:
+        uid: id of a given user stored in the database
+
+    Return:
+        template: Rendered template of a given user
+
+    """
+    user = User.query.get(uid)
+
+    template = render_template('profile.html', user=user)
+    return template 
 
 @app.route('/profiles')
 def profiles(): 
@@ -124,7 +137,7 @@ def profiles():
     """
     users = User.query.all()
 
-    template = render_template('profiles.html', users=users)  
+    template = render_template('profiles.html', users=users, title='Profiles')  
     return template 
 
 @app.route('/upload/<path:filename>')

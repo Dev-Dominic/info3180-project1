@@ -25,7 +25,7 @@
                             {{ user.location }}
                         </p>
 
-                        <a href="#" class="btn btn-primary">View Profile</a>
+                        <a href="{{ url_for('profile', uid=user.id) }}" class="btn btn-primary">View Profile</a>
                     
                     </div>
 
