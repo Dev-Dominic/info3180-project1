@@ -33,6 +33,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
 # File upload config
-app.config['UPLOAD_FOLDER'] = 'static/upload_folder' 
+app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
 
 from app import views, models
