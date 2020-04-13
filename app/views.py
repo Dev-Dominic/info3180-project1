@@ -9,11 +9,31 @@ import os
 
 @app.route("/")
 def home(): 
-    return render_template("home.html", title='Home')
+    """Renders home page template
+
+    Args:
+        None
+
+    Return:
+        template: Rendered home page template
+
+    """
+    template = render_template("home.html", title="Home")
+    return template
 
 @app.route("/about")
 def about(): 
-    return "about"
+    """Renders about page template
+
+    Args:
+        None
+
+    Return:
+        template: Rendered about page template
+
+    """
+    template = render_template("about.html", title="About")
+    return template 
 
 @app.route("/profile", methods=['GET', 'POST'])
 def createProfile(): 
@@ -120,7 +140,8 @@ def profile(uid):
     """
     user = User.query.get(uid)
 
-    template = render_template('profile.html', user=user)
+    fullname = f'{user.firstname} {user.lastname}'
+    template = render_template('profile.html', user=user, title=fullname)
     return template 
 
 @app.route('/profiles')
