@@ -27,7 +27,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 dbCred = config.getCredentials()
 
 # Database config
-# app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{dbCred['DB_USER']}:{dbCred['DB_PASSWORD']}@localhost/{dbCred['DB_NAME']}"
 app.config['SQLALCHEMY_DATABASE_URI'] = config.getDatabaseURI()
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
