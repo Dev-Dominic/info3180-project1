@@ -158,4 +158,5 @@ def uploaded_file(filename):
     if not os.path.exists(filePath):
         filename = 'default_image.jpg'
 
+    print(os.path.join(app.config['UPLOAD_FOLDER'], filename)) 
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
