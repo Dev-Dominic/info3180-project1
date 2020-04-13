@@ -142,4 +142,20 @@ def profiles():
 
 @app.route('/upload/<path:filename>')
 def uploaded_file(filename):
+    """Retrieves an upload file 
+
+    Retrives file path from upload_folder if file exists,
+    otherwise a default_image is sent in place. 
+
+    Args:
+        filename: Name of file to retrieve 
+
+    Return:
+       filepath: Path to file in upload_folder
+
+    """
+    filePath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+    if not os.path.exists(filePath):
+        filename = 'default_image.jpg'
+
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
