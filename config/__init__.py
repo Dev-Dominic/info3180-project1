@@ -29,6 +29,6 @@ def getDatabaseURI():
         uri: Database URI
 
     """
-    uri = os.getenv('DATABASE_URI')
+    uri = os.getenv('DATABASE_URL')
     return uri 
 
